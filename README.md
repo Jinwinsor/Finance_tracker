@@ -4,7 +4,7 @@
  <h3>Hi!🖐️</h3>
  <h3>I made an expense tracker with using Django, tailwindCSS, and little bit of JSON. It displays your expenses categorized by categories and dates.</h3>
 
-<h4 style="color:pink;">#Python3, Django, TailwindCSS, JASON, ChatJS.</h4>
+<h4>#Python3, Django, TailwindCSS, JASON, ChatJS.</h4>
 
  
  <img width="1421" alt="Screenshot 2023-05-31 at 1 26 56 AM" src="https://github.com/Jinwinsor/Finance_tracker/assets/91623627/81fe2d36-c8c1-4022-ae41-46fb062ac99d">
