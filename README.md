@@ -2,7 +2,7 @@
  it allows you to conveniently record and categorize your expenses, generate insightful reports.
  
  <h3>Hi!🖐️</h3>
- <h3>I made an expense tracker with using Django, tailwindCSS, and little bit of JSON. It displays your expenses categorized by categories and dates.</h3>
+ <h3>I made an expense tracker with using Django, tailwindCSS, and JavaScript(JSON). It displays your expenses categorized by categories and dates.</h3>
 
 
 <img src="https://github-readme-stats.vercel.app/api/top-langs?username=Jinwinsor&show_icons=true&locale=en&layout=compact&theme=chartreuse-dark" alt="ovi" />
@@ -18,6 +18,7 @@
   <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
   <img src="https://img.shields.io/badge/django-4479A1?style=for-the-badge&logo=django&logoColor=white">
   <img src="https://img.shields.io/badge/tailwindcss-000000?style=for-the-badge&logo=tailwindcss&logoColor=white">
+  <img src="https://img.shields.io/badge/javascript-000000?style=for-the-badge&logo=javascript&logoColor=white">
 </div>
 
 <hr/>
