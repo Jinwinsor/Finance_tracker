@@ -18,7 +18,6 @@
   <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
   <img src="https://img.shields.io/badge/django-4479A1?style=for-the-badge&logo=django&logoColor=white">
   <img src="https://img.shields.io/badge/tailwindcss-000000?style=for-the-badge&logo=tailwindcss&logoColor=white">
-  API-weather
 </div>
 
 <hr/>
