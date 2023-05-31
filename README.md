@@ -4,7 +4,24 @@
  <h3>Hi!🖐️</h3>
  <h3>I made an expense tracker with using Django, tailwindCSS, and little bit of JSON. It displays your expenses categorized by categories and dates.</h3>
 
-<h4>#Python3, Django, TailwindCSS, JASON, ChatJS.</h4>
+
+<img src="https://github-readme-stats.vercel.app/api/top-langs?username=Jinwinsor&show_icons=true&locale=en&layout=compact&theme=chartreuse-dark" alt="ovi" />
+
+![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=Jinwinsor&show_icons=true&theme=radical)
+
+<hr/>
+
+
+<div align="center">
+  <h4>#Python3, Django, TailwindCSS, JASON, ChatJS.</h4>
+  <p>What languages I've used</p>
+  <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/django-4479A1?style=for-the-badge&logo=django&logoColor=white">
+  <img src="https://img.shields.io/badge/tailwindcss-000000?style=for-the-badge&logo=tailwindcss&logoColor=white">
+  API-weather
+</div>
+
+<hr/>
 
  
  <img width="1421" alt="Screenshot 2023-05-31 at 1 26 56 AM" src="https://github.com/Jinwinsor/Finance_tracker/assets/91623627/81fe2d36-c8c1-4022-ae41-46fb062ac99d">
