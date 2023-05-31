@@ -1,0 +1,17 @@
+
+div.expense-header, div.expense-row {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+div.expense-header span, div.expense-row span{
+    display: table-cell;
+    text-align: center;
+
+}
+
+.here {
+    color: #ff0000; /* Replace #ff0000 with your desired color value */
+  }
+  

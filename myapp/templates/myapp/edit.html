@@ -1,0 +1,58 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<form method="POST" class="shadow-lg" action="">
+    {% csrf_token %}
+
+    <div class="px-10 py-20 flex">
+        <div class="mx-10">
+            <div class="mb-5">
+                <label class="font-bold">Expense Name</label>
+            </div>
+            <div class="border p-1">
+                {{ expense_form.name}}
+            </div>
+        </div>
+
+        <div class="mx-10">
+            <div class="mb-5">
+                <label class="font-bold">Price $</label>
+            </div>
+            <div class="border p-1">
+                {{ expense_form.price }}
+            </div>
+        </div>
+
+        <div class="mx-10">
+            <div class="mb-5">
+                <label class="font-bold">Category</label>
+            </div>
+            <div class="border p-1">
+                {{ expense_form.category}}
+            </div>
+        </div>
+
+        <div class="mx-10">
+            <div class="mb-5">
+                <label class="font-bold">Date</label>
+            </div>
+            <div class="border p-1">
+                {{ expense_form.date}}
+            </div>
+        </div>
+
+        <div class="mx-10 mt-10">
+            <button type="submit" class="bg-green-500 text-white rounded-lg font-bold px-5 py-2">Edit</button>
+        </div>
+    </div>
+</form>
+
+<div class="mx-10 mt-10 text-center">
+    <a href="{% url 'index' %}" class="btn btn-warning bg-yellow-500 rounded-lg text-white font-bold px-5 py-2">Home</a>
+</div>
+
+
+
+{% endblock %}

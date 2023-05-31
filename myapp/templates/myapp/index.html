@@ -1,0 +1,283 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% load humanize %}
+
+
+{% block body %}
+
+<div class="font-bold m-10">Add Your Expense➕</div>
+
+<!-- Add Expense -->
+<form method="POST" class="shadow-lg" action="">
+    {% csrf_token %}
+    <div class="form-container px-10 py-10 flex">
+        <div class="mx-10">
+            <div class="mb-5">
+                <label for="">Expense Name</label>
+            </div>
+            <div class="border">
+                {{ expense_form.name }}
+            </div>
+        </div>
+
+        <div class="mx-10">
+            <div class="mb-5">
+                <label for="">Price</label>
+            </div>
+            <div class="border">
+                {{ expense_form.price }}
+            </div>
+        </div>
+
+        <div class="mx-10">
+            <div class="mb-5">
+                <label for="">Category</label>
+            </div>
+            <div class="border">
+                {{ expense_form.category }}
+            </div>
+        </div>
+
+        <div class="mx-10">
+            <div class="mb-5">
+                <label for="">Date</label>
+            </div>
+            <div class="border">
+                {{ expense_form.date }}
+            </div>
+        </div>
+
+        <div class="mx-10 mb-6">
+            <button class="bg-blue-500 px-5 py-3 mt-2 rounded-lg text-white font-bold">Add</button>
+        </div>
+    </div>
+</form>
+
+<div class="font-bold m-10">Your Expenses💸</div>
+<!-- Display your expenses  -->
+<div class="shadow-lg rounded-lg px-10">
+    <div class="expense-header flex justify-between gap-20">
+        <span>Name</span>
+        <span>Price</span>
+        <span>Category</span>
+        <span>Date</span>
+        <span class="text-blue-500">Edit</span>
+        <span class="text-red-500">Delete</span>
+    </div>
+    <hr class="m-5">
+    <div class="scroll-container" style="height: 200px; overflow-y: auto;">
+        {% for expense in expenses %}
+            <div class="expense-row flex flex-wrap px-25 mb-4 gap-20 justify-between">
+                <span class="font-bold">{{ expense.name }}</span>
+                <span class="font-bold">${{ expense.price | intcomma }}</span>
+                <span class="font-bold">{{ expense.category }}</span>
+                <span class="font-bold">{{ expense.date }}</span>
+                <span class="pl-24">
+                    <a href="{% url 'edit' expense.id %}">
+                        <img class="h-5" src="{% static 'myapp/images/edit.png' %}" alt="">
+                    </a>
+                </span>
+                <span class="pl-4">
+                    <form method="POST" action="{% url 'delete' expense.id %}">
+                        {% csrf_token %}
+                        <button type="submit" name="delete"> 
+                            <img class="h-5" src="{% static 'myapp/images/delete.png' %}" alt="">
+                        </button>
+                    </form>
+                </span>
+            </div>
+        {% endfor %}
+    </div>
+    <!-- Display Total Expense -->
+    <div class="text-center py-3">
+        <span class="font-bold text-red-500">Total Spend: ${{ total_expense.price__sum | intcomma }}</span>
+    </div>
+</div>
+
+<div class="flex">
+    <div class="w-1/3 shadow-lg rounded-lg mt-10 ml-10">
+        <h1 class="ml-10 font-bold text-gray-500">LAST 365 DAYS</h1>
+        <h1 class="ml-10 text-green-500 text-2xl font-bold my-5">
+            ${{ yearly_sum.price__sum | intcomma }}</h1>
+    </div>
+
+    <div class="w-1/3 shadow-lg rounded-lg mt-10 ml-10">
+        <h1 class="ml-10 font-bold text-gray-500">LAST 30 DAYS</h1>
+        <h1 class="ml-10 text-green-500 text-2xl font-bold my-5">
+            ${{ monthly_sum.price__sum | intcomma}}
+        </h1>
+    </div>
+
+    <div class="w-1/3 shadow-lg rounded-lg mt-10 ml-10">
+        <h1 class="ml-10 font-bold text-gray-500">LAST 7 DAYS</h1>
+        <h1 class="ml-10 text-green-500 text-2xl font-bold my-5">
+            ${{ weekly_sum.price__sum | intcomma }}
+        </h1>
+    </div>
+</div>
+
+<div class="flex">
+    <div class="w-1/2 shadow-lg m-10">
+        <div class="flex flex-wrap font-bold py-5 justify-center">
+            <span>Summary of past 30 days expense</span>
+        </div>
+        <hr>
+        <div id="30-day-table" style="height:200px; overflow: auto;">
+            {% for daily_sum in daily_sums %}
+            <div class="flex flex-wrap px-20 py-2">
+                <span id="days" class="pr-5">{{ daily_sum.date }}</span>
+                <span class="text-green-500">${{ daily_sum.sum | intcomma }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="w-1/2 shadow-lg m-10">
+        <div class="flex flex-wrap font-bold py-5 justify-center">
+            <span>Expenses of category</span>
+        </div>
+        <hr>
+        <div id="category-table" style="height:200px; overflow: auto;">
+            {% for cat in categorical_sums %}
+            <div class="flex flex-wrap px-20 py-2">
+                <span id="category" class="pr-5">{{ cat.category }}</span>
+                <span class="text-green-500">${{ cat.sum | intcomma }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+</div>
+
+<div class="flex">
+    <div class="w-1/2 shadow-lg ml-10">
+        <h2 class="m-10">Expense - category</h2>
+        <canvas id="myChart" class="m-10"></canvas>
+    </div>
+    <div class="w-1/2 shadow-lg ml-10">
+        <h2 class="m-10">Expense - Daily</h2>
+        <canvas id="myChart1"  class="m-10"></canvas>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+<script>
+
+    // First - Category Chart
+        const cats = []
+        const cat_sums = []
+        const catSumId = document.getElementById('category-table').querySelectorAll('#category');
+    
+
+        for (let i = 0; i < catSumId.length; i++) {
+            const categorySpan = catSumId[i];
+            const sumSpan = catSumId[i].nextElementSibling;
+            //Using nextElementSibling allows you to access the next sibling element directly without relying on CSS classes or other identifiers.
+    
+            const category = categorySpan.textContent.trim();
+            const sum = parseFloat(sumSpan.textContent.replace("$", "").replace(",", ""));
+    
+            cats.push(category);
+            cat_sums.push(sum);
+        }
+    
+    // Second - 30Days Monthly Chart
+        const dates = []
+        const sums = []
+        const dailyIdSum = document.getElementById("30-day-table").querySelectorAll('#days');
+    
+        for (let i = 0; i < dailyIdSum.length; i++) {
+            const daysSpan = dailyIdSum[i];
+            const sumSpan = dailyIdSum[i].nextElementSibling;
+    
+            const days = daysSpan.textContent.trim();
+            const days_sum = parseFloat(sumSpan.textContent.replace("$", "").replace(",", ""));
+    
+            dates.push(days);
+            sums.push(days_sum);
+        }
+    
+        console.log(dates);
+        console.log(sums);
+    
+    // First - Category Chart 
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: cats,
+                datasets: [{
+                    label: 'Expense across categories',
+                    data: cat_sums,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    
+    // SECOND - 30days chart with myChart1
+        var ctx1 = document.getElementById('myChart1').getContext('2d');
+        var myChart1 = new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Sum of daily expenses',
+                    data: sums,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        </script>
+    
+    
+
+
+{% endblock %}
