@@ -13,8 +13,7 @@
 
 
 <div align="center">
-  <h4>#Python3, Django, TailwindCSS, JASON, ChatJS.</h4>
-  <p>What languages I've used</p>
+  <h4>What languages I've used</h4>
   <img src="https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white">
   <img src="https://img.shields.io/badge/django-4479A1?style=for-the-badge&logo=django&logoColor=white">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
